@@ -18,5 +18,12 @@ module.exports = {
 		},
 		types: {}
 	},
+	friends: {
+		service: require('./friends/friends_service'),
+		rpc: {
+			sendUserNotificationWiiU: require('./friends/send_user_notification_wiiu_rpc')
+		},
+		types: {}
+	},
 };
 
