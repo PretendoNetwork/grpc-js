@@ -8,13 +8,7 @@ exports.RegisterPNIDRequest = exports.protobufPackage = void 0;
 var minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "account";
 function createBaseRegisterPNIDRequest() {
-    return {
-        email: "",
-        username: "",
-        password: "",
-        passwordConfirm: "",
-        hCaptchaResponse: ""
-    };
+    return { email: "", username: "", password: "", passwordConfirm: "", hCaptchaResponse: "" };
 }
 exports.RegisterPNIDRequest = {
     encode: function (message, writer) {
@@ -37,31 +31,47 @@ exports.RegisterPNIDRequest = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseRegisterPNIDRequest();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.email = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.username = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.password = reader.string();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.passwordConfirm = reader.string();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.hCaptchaResponse = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -70,12 +80,8 @@ exports.RegisterPNIDRequest = {
             email: isSet(object.email) ? String(object.email) : "",
             username: isSet(object.username) ? String(object.username) : "",
             password: isSet(object.password) ? String(object.password) : "",
-            passwordConfirm: isSet(object.passwordConfirm)
-                ? String(object.passwordConfirm)
-                : "",
-            hCaptchaResponse: isSet(object.hCaptchaResponse)
-                ? String(object.hCaptchaResponse)
-                : ""
+            passwordConfirm: isSet(object.passwordConfirm) ? String(object.passwordConfirm) : "",
+            hCaptchaResponse: isSet(object.hCaptchaResponse) ? String(object.hCaptchaResponse) : ""
         };
     },
     toJSON: function (message) {
@@ -83,11 +89,12 @@ exports.RegisterPNIDRequest = {
         message.email !== undefined && (obj.email = message.email);
         message.username !== undefined && (obj.username = message.username);
         message.password !== undefined && (obj.password = message.password);
-        message.passwordConfirm !== undefined &&
-            (obj.passwordConfirm = message.passwordConfirm);
-        message.hCaptchaResponse !== undefined &&
-            (obj.hCaptchaResponse = message.hCaptchaResponse);
+        message.passwordConfirm !== undefined && (obj.passwordConfirm = message.passwordConfirm);
+        message.hCaptchaResponse !== undefined && (obj.hCaptchaResponse = message.hCaptchaResponse);
         return obj;
+    },
+    create: function (base) {
+        return exports.RegisterPNIDRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a, _b, _c, _d, _e;

@@ -1,12 +1,9 @@
 /* eslint-disable */
-import { CallContext, CallOptions } from "nice-grpc-common";
+import type { CallContext, CallOptions } from "nice-grpc-common";
+import { GetBasicUserDataRequest, GetBasicUserDataResponse } from "./get_basic_user_data_rpc";
 import { IsBannedRequest, IsBannedResponse } from "./is_banned_rpc";
-import {
-  GetBasicUserDataRequest,
-  GetBasicUserDataResponse,
-} from "./get_basic_user_data_rpc";
+import { LoginRequest, LoginResponse } from "./login_rpc";
 import { RegisterPNIDRequest } from "./register_pnid_rpc";
-import { LoginResponse, LoginRequest } from "./login_rpc";
 
 export const protobufPackage = "account";
 
@@ -54,61 +51,37 @@ export const AccountDefinition = {
 
 export interface AccountServiceImplementation<CallContextExt = {}> {
   /** Used by Juxt */
-  isBanned(
-    request: IsBannedRequest,
-    context: CallContext & CallContextExt
-  ): Promise<DeepPartial<IsBannedResponse>>;
+  isBanned(request: IsBannedRequest, context: CallContext & CallContextExt): Promise<DeepPartial<IsBannedResponse>>;
   getBasicUserData(
     request: GetBasicUserDataRequest,
-    context: CallContext & CallContextExt
+    context: CallContext & CallContextExt,
   ): Promise<DeepPartial<GetBasicUserDataResponse>>;
   /** Used by website */
   registerPNID(
     request: RegisterPNIDRequest,
-    context: CallContext & CallContextExt
+    context: CallContext & CallContextExt,
   ): Promise<DeepPartial<LoginResponse>>;
-  login(
-    request: LoginRequest,
-    context: CallContext & CallContextExt
-  ): Promise<DeepPartial<LoginResponse>>;
+  login(request: LoginRequest, context: CallContext & CallContextExt): Promise<DeepPartial<LoginResponse>>;
 }
 
 export interface AccountClient<CallOptionsExt = {}> {
   /** Used by Juxt */
-  isBanned(
-    request: DeepPartial<IsBannedRequest>,
-    options?: CallOptions & CallOptionsExt
-  ): Promise<IsBannedResponse>;
+  isBanned(request: DeepPartial<IsBannedRequest>, options?: CallOptions & CallOptionsExt): Promise<IsBannedResponse>;
   getBasicUserData(
     request: DeepPartial<GetBasicUserDataRequest>,
-    options?: CallOptions & CallOptionsExt
+    options?: CallOptions & CallOptionsExt,
   ): Promise<GetBasicUserDataResponse>;
   /** Used by website */
   registerPNID(
     request: DeepPartial<RegisterPNIDRequest>,
-    options?: CallOptions & CallOptionsExt
+    options?: CallOptions & CallOptionsExt,
   ): Promise<LoginResponse>;
-  login(
-    request: DeepPartial<LoginRequest>,
-    options?: CallOptions & CallOptionsExt
-  ): Promise<LoginResponse>;
+  login(request: DeepPartial<LoginRequest>, options?: CallOptions & CallOptionsExt): Promise<LoginResponse>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;

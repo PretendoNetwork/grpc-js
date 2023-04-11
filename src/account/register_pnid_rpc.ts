@@ -12,20 +12,11 @@ export interface RegisterPNIDRequest {
 }
 
 function createBaseRegisterPNIDRequest(): RegisterPNIDRequest {
-  return {
-    email: "",
-    username: "",
-    password: "",
-    passwordConfirm: "",
-    hCaptchaResponse: "",
-  };
+  return { email: "", username: "", password: "", passwordConfirm: "", hCaptchaResponse: "" };
 }
 
 export const RegisterPNIDRequest = {
-  encode(
-    message: RegisterPNIDRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: RegisterPNIDRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.email !== "") {
       writer.uint32(10).string(message.email);
     }
@@ -45,31 +36,52 @@ export const RegisterPNIDRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RegisterPNIDRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRegisterPNIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.email = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.username = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.password = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.passwordConfirm = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.hCaptchaResponse = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -79,12 +91,8 @@ export const RegisterPNIDRequest = {
       email: isSet(object.email) ? String(object.email) : "",
       username: isSet(object.username) ? String(object.username) : "",
       password: isSet(object.password) ? String(object.password) : "",
-      passwordConfirm: isSet(object.passwordConfirm)
-        ? String(object.passwordConfirm)
-        : "",
-      hCaptchaResponse: isSet(object.hCaptchaResponse)
-        ? String(object.hCaptchaResponse)
-        : "",
+      passwordConfirm: isSet(object.passwordConfirm) ? String(object.passwordConfirm) : "",
+      hCaptchaResponse: isSet(object.hCaptchaResponse) ? String(object.hCaptchaResponse) : "",
     };
   },
 
@@ -93,11 +101,13 @@ export const RegisterPNIDRequest = {
     message.email !== undefined && (obj.email = message.email);
     message.username !== undefined && (obj.username = message.username);
     message.password !== undefined && (obj.password = message.password);
-    message.passwordConfirm !== undefined &&
-      (obj.passwordConfirm = message.passwordConfirm);
-    message.hCaptchaResponse !== undefined &&
-      (obj.hCaptchaResponse = message.hCaptchaResponse);
+    message.passwordConfirm !== undefined && (obj.passwordConfirm = message.passwordConfirm);
+    message.hCaptchaResponse !== undefined && (obj.hCaptchaResponse = message.hCaptchaResponse);
     return obj;
+  },
+
+  create(base?: DeepPartial<RegisterPNIDRequest>): RegisterPNIDRequest {
+    return RegisterPNIDRequest.fromPartial(base ?? {});
   },
 
   fromPartial(object: DeepPartial<RegisterPNIDRequest>): RegisterPNIDRequest {
@@ -111,23 +121,11 @@ export const RegisterPNIDRequest = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 function isSet(value: any): boolean {

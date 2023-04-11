@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { Mii } from "./mii";
 import _m0 from "protobufjs/minimal";
+import { Mii } from "./mii";
 
 export const protobufPackage = "account";
 
@@ -19,41 +19,38 @@ function createBaseGetBasicUserDataRequest(): GetBasicUserDataRequest {
 }
 
 export const GetBasicUserDataRequest = {
-  encode(
-    message: GetBasicUserDataRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GetBasicUserDataRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.username !== "") {
       writer.uint32(10).string(message.username);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): GetBasicUserDataRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetBasicUserDataRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetBasicUserDataRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.username = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
 
   fromJSON(object: any): GetBasicUserDataRequest {
-    return {
-      username: isSet(object.username) ? String(object.username) : "",
-    };
+    return { username: isSet(object.username) ? String(object.username) : "" };
   },
 
   toJSON(message: GetBasicUserDataRequest): unknown {
@@ -62,9 +59,11 @@ export const GetBasicUserDataRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<GetBasicUserDataRequest>
-  ): GetBasicUserDataRequest {
+  create(base?: DeepPartial<GetBasicUserDataRequest>): GetBasicUserDataRequest {
+    return GetBasicUserDataRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial(object: DeepPartial<GetBasicUserDataRequest>): GetBasicUserDataRequest {
     const message = createBaseGetBasicUserDataRequest();
     message.username = object.username ?? "";
     return message;
@@ -76,10 +75,7 @@ function createBaseGetBasicUserDataResponse(): GetBasicUserDataResponse {
 }
 
 export const GetBasicUserDataResponse = {
-  encode(
-    message: GetBasicUserDataResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GetBasicUserDataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.username !== "") {
       writer.uint32(10).string(message.username);
     }
@@ -92,29 +88,39 @@ export const GetBasicUserDataResponse = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): GetBasicUserDataResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetBasicUserDataResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetBasicUserDataResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.username = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.accessLevel = reader.sint32();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.mii = Mii.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -130,44 +136,29 @@ export const GetBasicUserDataResponse = {
   toJSON(message: GetBasicUserDataResponse): unknown {
     const obj: any = {};
     message.username !== undefined && (obj.username = message.username);
-    message.accessLevel !== undefined &&
-      (obj.accessLevel = Math.round(message.accessLevel));
-    message.mii !== undefined &&
-      (obj.mii = message.mii ? Mii.toJSON(message.mii) : undefined);
+    message.accessLevel !== undefined && (obj.accessLevel = Math.round(message.accessLevel));
+    message.mii !== undefined && (obj.mii = message.mii ? Mii.toJSON(message.mii) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<GetBasicUserDataResponse>
-  ): GetBasicUserDataResponse {
+  create(base?: DeepPartial<GetBasicUserDataResponse>): GetBasicUserDataResponse {
+    return GetBasicUserDataResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial(object: DeepPartial<GetBasicUserDataResponse>): GetBasicUserDataResponse {
     const message = createBaseGetBasicUserDataResponse();
     message.username = object.username ?? "";
     message.accessLevel = object.accessLevel ?? 0;
-    message.mii =
-      object.mii !== undefined && object.mii !== null
-        ? Mii.fromPartial(object.mii)
-        : undefined;
+    message.mii = (object.mii !== undefined && object.mii !== null) ? Mii.fromPartial(object.mii) : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 function isSet(value: any): boolean {

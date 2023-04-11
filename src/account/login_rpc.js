@@ -22,22 +22,29 @@ exports.LoginRequest = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseLoginRequest();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.username = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.password = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -52,6 +59,9 @@ exports.LoginRequest = {
         message.username !== undefined && (obj.username = message.username);
         message.password !== undefined && (obj.password = message.password);
         return obj;
+    },
+    create: function (base) {
+        return exports.LoginRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a, _b;
@@ -82,28 +92,41 @@ exports.LoginResponse = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseLoginResponse();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.expiresIn = reader.uint32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.tokenType = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.accessToken = reader.string();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.refreshToken = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -112,21 +135,19 @@ exports.LoginResponse = {
             expiresIn: isSet(object.expiresIn) ? Number(object.expiresIn) : 0,
             tokenType: isSet(object.tokenType) ? String(object.tokenType) : "",
             accessToken: isSet(object.accessToken) ? String(object.accessToken) : "",
-            refreshToken: isSet(object.refreshToken)
-                ? String(object.refreshToken)
-                : ""
+            refreshToken: isSet(object.refreshToken) ? String(object.refreshToken) : ""
         };
     },
     toJSON: function (message) {
         var obj = {};
-        message.expiresIn !== undefined &&
-            (obj.expiresIn = Math.round(message.expiresIn));
+        message.expiresIn !== undefined && (obj.expiresIn = Math.round(message.expiresIn));
         message.tokenType !== undefined && (obj.tokenType = message.tokenType);
-        message.accessToken !== undefined &&
-            (obj.accessToken = message.accessToken);
-        message.refreshToken !== undefined &&
-            (obj.refreshToken = message.refreshToken);
+        message.accessToken !== undefined && (obj.accessToken = message.accessToken);
+        message.refreshToken !== undefined && (obj.refreshToken = message.refreshToken);
         return obj;
+    },
+    create: function (base) {
+        return exports.LoginResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a, _b, _c, _d;

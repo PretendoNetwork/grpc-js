@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@echo-health/grpc-interceptors": "github:echo-health/node-grpc-interceptors",
     "@grpc/grpc-js": "^1.6.9",
     "@grpc/proto-loader": "^0.7.0",
     "long": "^5.2.0",

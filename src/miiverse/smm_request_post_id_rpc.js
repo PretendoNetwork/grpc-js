@@ -20,32 +20,36 @@ exports.SMMRequestPostIdRequest = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseSMMRequestPostIdRequest();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.courseId = longToNumber(reader.uint64());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON: function (object) {
-        return {
-            courseId: isSet(object.courseId) ? Number(object.courseId) : 0
-        };
+        return { courseId: isSet(object.courseId) ? Number(object.courseId) : 0 };
     },
     toJSON: function (message) {
         var obj = {};
-        message.courseId !== undefined &&
-            (obj.courseId = Math.round(message.courseId));
+        message.courseId !== undefined && (obj.courseId = Math.round(message.courseId));
         return obj;
+    },
+    create: function (base) {
+        return exports.SMMRequestPostIdRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a;
@@ -66,31 +70,36 @@ exports.SMMRequestPostIdResponse = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseSMMRequestPostIdResponse();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.postId = longToNumber(reader.uint64());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON: function (object) {
-        return {
-            postId: isSet(object.postId) ? Number(object.postId) : 0
-        };
+        return { postId: isSet(object.postId) ? Number(object.postId) : 0 };
     },
     toJSON: function (message) {
         var obj = {};
         message.postId !== undefined && (obj.postId = Math.round(message.postId));
         return obj;
+    },
+    create: function (base) {
+        return exports.SMMRequestPostIdResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a;
@@ -99,20 +108,24 @@ exports.SMMRequestPostIdResponse = {
         return message;
     }
 };
-var globalThis = (function () {
-    if (typeof globalThis !== "undefined")
+var tsProtoGlobalThis = (function () {
+    if (typeof globalThis !== "undefined") {
         return globalThis;
-    if (typeof self !== "undefined")
+    }
+    if (typeof self !== "undefined") {
         return self;
-    if (typeof window !== "undefined")
+    }
+    if (typeof window !== "undefined") {
         return window;
-    if (typeof global !== "undefined")
+    }
+    if (typeof global !== "undefined") {
         return global;
+    }
     throw "Unable to locate global object";
 })();
 function longToNumber(long) {
     if (long.gt(Number.MAX_SAFE_INTEGER)) {
-        throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
+        throw new tsProtoGlobalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
     }
     return long.toNumber();
 }

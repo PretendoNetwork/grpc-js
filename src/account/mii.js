@@ -25,25 +25,35 @@ exports.Mii = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseMii();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.name = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.data = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.url = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -60,6 +70,9 @@ exports.Mii = {
         message.data !== undefined && (obj.data = message.data);
         message.url !== undefined && (obj.url = message.url);
         return obj;
+    },
+    create: function (base) {
+        return exports.Mii.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a, _b, _c;

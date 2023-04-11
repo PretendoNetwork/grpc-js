@@ -1,10 +1,10 @@
 "use strict";
 exports.__esModule = true;
 exports.AccountDefinition = exports.protobufPackage = void 0;
-var is_banned_rpc_1 = require("./is_banned_rpc");
 var get_basic_user_data_rpc_1 = require("./get_basic_user_data_rpc");
-var register_pnid_rpc_1 = require("./register_pnid_rpc");
+var is_banned_rpc_1 = require("./is_banned_rpc");
 var login_rpc_1 = require("./login_rpc");
+var register_pnid_rpc_1 = require("./register_pnid_rpc");
 exports.protobufPackage = "account";
 exports.AccountDefinition = {
     name: "Account",

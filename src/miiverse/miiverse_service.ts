@@ -1,9 +1,6 @@
 /* eslint-disable */
-import { CallContext, CallOptions } from "nice-grpc-common";
-import {
-  SMMRequestPostIdRequest,
-  SMMRequestPostIdResponse,
-} from "./smm_request_post_id_rpc";
+import type { CallContext, CallOptions } from "nice-grpc-common";
+import { SMMRequestPostIdRequest, SMMRequestPostIdResponse } from "./smm_request_post_id_rpc";
 
 export const protobufPackage = "miiverse";
 
@@ -28,7 +25,7 @@ export interface MiiverseServiceImplementation<CallContextExt = {}> {
   /** Used by Super Mario Maker */
   sMMRequestPostId(
     request: SMMRequestPostIdRequest,
-    context: CallContext & CallContextExt
+    context: CallContext & CallContextExt,
   ): Promise<DeepPartial<SMMRequestPostIdResponse>>;
 }
 
@@ -36,25 +33,13 @@ export interface MiiverseClient<CallOptionsExt = {}> {
   /** Used by Super Mario Maker */
   sMMRequestPostId(
     request: DeepPartial<SMMRequestPostIdRequest>,
-    options?: CallOptions & CallOptionsExt
+    options?: CallOptions & CallOptionsExt,
   ): Promise<SMMRequestPostIdResponse>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;

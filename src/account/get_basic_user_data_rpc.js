@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.GetBasicUserDataResponse = exports.GetBasicUserDataRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
-var mii_1 = require("./mii");
 var minimal_1 = __importDefault(require("protobufjs/minimal"));
+var mii_1 = require("./mii");
 exports.protobufPackage = "account";
 function createBaseGetBasicUserDataRequest() {
     return { username: "" };
@@ -20,31 +20,36 @@ exports.GetBasicUserDataRequest = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseGetBasicUserDataRequest();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.username = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON: function (object) {
-        return {
-            username: isSet(object.username) ? String(object.username) : ""
-        };
+        return { username: isSet(object.username) ? String(object.username) : "" };
     },
     toJSON: function (message) {
         var obj = {};
         message.username !== undefined && (obj.username = message.username);
         return obj;
+    },
+    create: function (base) {
+        return exports.GetBasicUserDataRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a;
@@ -71,25 +76,35 @@ exports.GetBasicUserDataResponse = {
         return writer;
     },
     decode: function (input, length) {
-        var reader = input instanceof minimal_1["default"].Reader ? input : new minimal_1["default"].Reader(input);
+        var reader = input instanceof minimal_1["default"].Reader ? input : minimal_1["default"].Reader.create(input);
         var end = length === undefined ? reader.len : reader.pos + length;
         var message = createBaseGetBasicUserDataResponse();
         while (reader.pos < end) {
             var tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.username = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.accessLevel = reader.sint32();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.mii = mii_1.Mii.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -103,21 +118,19 @@ exports.GetBasicUserDataResponse = {
     toJSON: function (message) {
         var obj = {};
         message.username !== undefined && (obj.username = message.username);
-        message.accessLevel !== undefined &&
-            (obj.accessLevel = Math.round(message.accessLevel));
-        message.mii !== undefined &&
-            (obj.mii = message.mii ? mii_1.Mii.toJSON(message.mii) : undefined);
+        message.accessLevel !== undefined && (obj.accessLevel = Math.round(message.accessLevel));
+        message.mii !== undefined && (obj.mii = message.mii ? mii_1.Mii.toJSON(message.mii) : undefined);
         return obj;
+    },
+    create: function (base) {
+        return exports.GetBasicUserDataResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
         var _a, _b;
         var message = createBaseGetBasicUserDataResponse();
         message.username = (_a = object.username) !== null && _a !== void 0 ? _a : "";
         message.accessLevel = (_b = object.accessLevel) !== null && _b !== void 0 ? _b : 0;
-        message.mii =
-            object.mii !== undefined && object.mii !== null
-                ? mii_1.Mii.fromPartial(object.mii)
-                : undefined;
+        message.mii = (object.mii !== undefined && object.mii !== null) ? mii_1.Mii.fromPartial(object.mii) : undefined;
         return message;
     }
 };

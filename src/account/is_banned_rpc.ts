@@ -16,10 +16,7 @@ function createBaseIsBannedRequest(): IsBannedRequest {
 }
 
 export const IsBannedRequest = {
-  encode(
-    message: IsBannedRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: IsBannedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.username !== "") {
       writer.uint32(10).string(message.username);
     }
@@ -27,33 +24,40 @@ export const IsBannedRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): IsBannedRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIsBannedRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.username = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
 
   fromJSON(object: any): IsBannedRequest {
-    return {
-      username: isSet(object.username) ? String(object.username) : "",
-    };
+    return { username: isSet(object.username) ? String(object.username) : "" };
   },
 
   toJSON(message: IsBannedRequest): unknown {
     const obj: any = {};
     message.username !== undefined && (obj.username = message.username);
     return obj;
+  },
+
+  create(base?: DeepPartial<IsBannedRequest>): IsBannedRequest {
+    return IsBannedRequest.fromPartial(base ?? {});
   },
 
   fromPartial(object: DeepPartial<IsBannedRequest>): IsBannedRequest {
@@ -68,10 +72,7 @@ function createBaseIsBannedResponse(): IsBannedResponse {
 }
 
 export const IsBannedResponse = {
-  encode(
-    message: IsBannedResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: IsBannedResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.banned === true) {
       writer.uint32(8).bool(message.banned);
     }
@@ -79,33 +80,40 @@ export const IsBannedResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): IsBannedResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIsBannedResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.banned = reader.bool();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
 
   fromJSON(object: any): IsBannedResponse {
-    return {
-      banned: isSet(object.banned) ? Boolean(object.banned) : false,
-    };
+    return { banned: isSet(object.banned) ? Boolean(object.banned) : false };
   },
 
   toJSON(message: IsBannedResponse): unknown {
     const obj: any = {};
     message.banned !== undefined && (obj.banned = message.banned);
     return obj;
+  },
+
+  create(base?: DeepPartial<IsBannedResponse>): IsBannedResponse {
+    return IsBannedResponse.fromPartial(base ?? {});
   },
 
   fromPartial(object: DeepPartial<IsBannedResponse>): IsBannedResponse {
@@ -115,23 +123,11 @@ export const IsBannedResponse = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 function isSet(value: any): boolean {
