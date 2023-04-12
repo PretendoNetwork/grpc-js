@@ -6,6 +6,7 @@ export const protobufPackage = "friends";
 export interface SendUserFriendRequestRequest {
   sender: number;
   recipient: number;
+  message: string;
 }
 
 export interface SendUserFriendRequestResponse {
@@ -13,7 +14,7 @@ export interface SendUserFriendRequestResponse {
 }
 
 function createBaseSendUserFriendRequestRequest(): SendUserFriendRequestRequest {
-  return { sender: 0, recipient: 0 };
+  return { sender: 0, recipient: 0, message: "" };
 }
 
 export const SendUserFriendRequestRequest = {
@@ -23,6 +24,9 @@ export const SendUserFriendRequestRequest = {
     }
     if (message.recipient !== 0) {
       writer.uint32(16).uint32(message.recipient);
+    }
+    if (message.message !== "") {
+      writer.uint32(26).string(message.message);
     }
     return writer;
   },
@@ -48,6 +52,13 @@ export const SendUserFriendRequestRequest = {
 
           message.recipient = reader.uint32();
           continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.message = reader.string();
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -61,6 +72,7 @@ export const SendUserFriendRequestRequest = {
     return {
       sender: isSet(object.sender) ? Number(object.sender) : 0,
       recipient: isSet(object.recipient) ? Number(object.recipient) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
     };
   },
 
@@ -68,6 +80,7 @@ export const SendUserFriendRequestRequest = {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = Math.round(message.sender));
     message.recipient !== undefined && (obj.recipient = Math.round(message.recipient));
+    message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
@@ -79,6 +92,7 @@ export const SendUserFriendRequestRequest = {
     const message = createBaseSendUserFriendRequestRequest();
     message.sender = object.sender ?? 0;
     message.recipient = object.recipient ?? 0;
+    message.message = object.message ?? "";
     return message;
   },
 };

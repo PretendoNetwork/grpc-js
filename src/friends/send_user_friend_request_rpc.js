@@ -8,7 +8,7 @@ exports.SendUserFriendRequestResponse = exports.SendUserFriendRequestRequest = e
 var minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "friends";
 function createBaseSendUserFriendRequestRequest() {
-    return { sender: 0, recipient: 0 };
+    return { sender: 0, recipient: 0, message: "" };
 }
 exports.SendUserFriendRequestRequest = {
     encode: function (message, writer) {
@@ -18,6 +18,9 @@ exports.SendUserFriendRequestRequest = {
         }
         if (message.recipient !== 0) {
             writer.uint32(16).uint32(message.recipient);
+        }
+        if (message.message !== "") {
+            writer.uint32(26).string(message.message);
         }
         return writer;
     },
@@ -40,6 +43,12 @@ exports.SendUserFriendRequestRequest = {
                     }
                     message.recipient = reader.uint32();
                     continue;
+                case 3:
+                    if (tag != 26) {
+                        break;
+                    }
+                    message.message = reader.string();
+                    continue;
             }
             if ((tag & 7) == 4 || tag == 0) {
                 break;
@@ -51,23 +60,26 @@ exports.SendUserFriendRequestRequest = {
     fromJSON: function (object) {
         return {
             sender: isSet(object.sender) ? Number(object.sender) : 0,
-            recipient: isSet(object.recipient) ? Number(object.recipient) : 0
+            recipient: isSet(object.recipient) ? Number(object.recipient) : 0,
+            message: isSet(object.message) ? String(object.message) : ""
         };
     },
     toJSON: function (message) {
         var obj = {};
         message.sender !== undefined && (obj.sender = Math.round(message.sender));
         message.recipient !== undefined && (obj.recipient = Math.round(message.recipient));
+        message.message !== undefined && (obj.message = message.message);
         return obj;
     },
     create: function (base) {
         return exports.SendUserFriendRequestRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial: function (object) {
-        var _a, _b;
+        var _a, _b, _c;
         var message = createBaseSendUserFriendRequestRequest();
         message.sender = (_a = object.sender) !== null && _a !== void 0 ? _a : 0;
         message.recipient = (_b = object.recipient) !== null && _b !== void 0 ? _b : 0;
+        message.message = (_c = object.message) !== null && _c !== void 0 ? _c : "";
         return message;
     }
 };
