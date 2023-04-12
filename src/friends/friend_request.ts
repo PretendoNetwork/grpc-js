@@ -10,10 +10,11 @@ export interface FriendRequest {
   recipient: number;
   sent: number;
   expires: number;
+  message: string;
 }
 
 function createBaseFriendRequest(): FriendRequest {
-  return { id: 0, sender: 0, recipient: 0, sent: 0, expires: 0 };
+  return { id: 0, sender: 0, recipient: 0, sent: 0, expires: 0, message: "" };
 }
 
 export const FriendRequest = {
@@ -32,6 +33,9 @@ export const FriendRequest = {
     }
     if (message.expires !== 0) {
       writer.uint32(40).uint64(message.expires);
+    }
+    if (message.message !== "") {
+      writer.uint32(50).string(message.message);
     }
     return writer;
   },
@@ -78,6 +82,13 @@ export const FriendRequest = {
 
           message.expires = longToNumber(reader.uint64() as Long);
           continue;
+        case 6:
+          if (tag != 50) {
+            break;
+          }
+
+          message.message = reader.string();
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -94,6 +105,7 @@ export const FriendRequest = {
       recipient: isSet(object.recipient) ? Number(object.recipient) : 0,
       sent: isSet(object.sent) ? Number(object.sent) : 0,
       expires: isSet(object.expires) ? Number(object.expires) : 0,
+      message: isSet(object.message) ? String(object.message) : "",
     };
   },
 
@@ -104,6 +116,7 @@ export const FriendRequest = {
     message.recipient !== undefined && (obj.recipient = Math.round(message.recipient));
     message.sent !== undefined && (obj.sent = Math.round(message.sent));
     message.expires !== undefined && (obj.expires = Math.round(message.expires));
+    message.message !== undefined && (obj.message = message.message);
     return obj;
   },
 
@@ -118,6 +131,7 @@ export const FriendRequest = {
     message.recipient = object.recipient ?? 0;
     message.sent = object.sent ?? 0;
     message.expires = object.expires ?? 0;
+    message.message = object.message ?? "";
     return message;
   },
 };
