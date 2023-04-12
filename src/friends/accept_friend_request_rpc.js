@@ -9,13 +9,13 @@ var long_1 = __importDefault(require("long"));
 var minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "friends";
 function createBaseAcceptFriendRequestRequest() {
-    return { accept: 0 };
+    return { friendRequestId: 0 };
 }
 exports.AcceptFriendRequestRequest = {
     encode: function (message, writer) {
         if (writer === void 0) { writer = minimal_1["default"].Writer.create(); }
-        if (message.accept !== 0) {
-            writer.uint32(8).uint64(message.accept);
+        if (message.friendRequestId !== 0) {
+            writer.uint32(8).uint64(message.friendRequestId);
         }
         return writer;
     },
@@ -30,7 +30,7 @@ exports.AcceptFriendRequestRequest = {
                     if (tag != 8) {
                         break;
                     }
-                    message.accept = longToNumber(reader.uint64());
+                    message.friendRequestId = longToNumber(reader.uint64());
                     continue;
             }
             if ((tag & 7) == 4 || tag == 0) {
@@ -41,11 +41,11 @@ exports.AcceptFriendRequestRequest = {
         return message;
     },
     fromJSON: function (object) {
-        return { accept: isSet(object.accept) ? Number(object.accept) : 0 };
+        return { friendRequestId: isSet(object.friendRequestId) ? Number(object.friendRequestId) : 0 };
     },
     toJSON: function (message) {
         var obj = {};
-        message.accept !== undefined && (obj.accept = Math.round(message.accept));
+        message.friendRequestId !== undefined && (obj.friendRequestId = Math.round(message.friendRequestId));
         return obj;
     },
     create: function (base) {
@@ -54,7 +54,7 @@ exports.AcceptFriendRequestRequest = {
     fromPartial: function (object) {
         var _a;
         var message = createBaseAcceptFriendRequestRequest();
-        message.accept = (_a = object.accept) !== null && _a !== void 0 ? _a : 0;
+        message.friendRequestId = (_a = object.friendRequestId) !== null && _a !== void 0 ? _a : 0;
         return message;
     }
 };

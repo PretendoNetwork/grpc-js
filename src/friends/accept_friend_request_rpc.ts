@@ -5,7 +5,7 @@ import _m0 from "protobufjs/minimal";
 export const protobufPackage = "friends";
 
 export interface AcceptFriendRequestRequest {
-  accept: number;
+  friendRequestId: number;
 }
 
 export interface AcceptFriendRequestResponse {
@@ -13,13 +13,13 @@ export interface AcceptFriendRequestResponse {
 }
 
 function createBaseAcceptFriendRequestRequest(): AcceptFriendRequestRequest {
-  return { accept: 0 };
+  return { friendRequestId: 0 };
 }
 
 export const AcceptFriendRequestRequest = {
   encode(message: AcceptFriendRequestRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.accept !== 0) {
-      writer.uint32(8).uint64(message.accept);
+    if (message.friendRequestId !== 0) {
+      writer.uint32(8).uint64(message.friendRequestId);
     }
     return writer;
   },
@@ -36,7 +36,7 @@ export const AcceptFriendRequestRequest = {
             break;
           }
 
-          message.accept = longToNumber(reader.uint64() as Long);
+          message.friendRequestId = longToNumber(reader.uint64() as Long);
           continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
@@ -48,12 +48,12 @@ export const AcceptFriendRequestRequest = {
   },
 
   fromJSON(object: any): AcceptFriendRequestRequest {
-    return { accept: isSet(object.accept) ? Number(object.accept) : 0 };
+    return { friendRequestId: isSet(object.friendRequestId) ? Number(object.friendRequestId) : 0 };
   },
 
   toJSON(message: AcceptFriendRequestRequest): unknown {
     const obj: any = {};
-    message.accept !== undefined && (obj.accept = Math.round(message.accept));
+    message.friendRequestId !== undefined && (obj.friendRequestId = Math.round(message.friendRequestId));
     return obj;
   },
 
@@ -63,7 +63,7 @@ export const AcceptFriendRequestRequest = {
 
   fromPartial(object: DeepPartial<AcceptFriendRequestRequest>): AcceptFriendRequestRequest {
     const message = createBaseAcceptFriendRequestRequest();
-    message.accept = object.accept ?? 0;
+    message.friendRequestId = object.friendRequestId ?? 0;
     return message;
   },
 };
