@@ -8,7 +8,7 @@ module.exports = {
 			registerPNID: require('./account/register_pnid_rpc'),
 		},
 		types: {
-			mii: require('./account/mii')
+			Mii: require('./account/mii')
 		}
 	},
 	miiverse: {
@@ -23,8 +23,13 @@ module.exports = {
 		rpc: {
 			sendUserNotificationWiiU: require('./friends/send_user_notification_wiiu_rpc'),
 			getUserFriendPIDs: require('./friends/get_user_friend_pids_rpc'),
+			sendUserFriendRequest: require('./friends/send_user_friend_request_rpc'),
+			getUserFriendRequestsIncoming: require('./friends/get_user_friend_requests_incoming_rpc'),
+			acceptFriendRequest: require('./friends/accept_friend_request_rpc'),
 		},
-		types: {}
+		types: {
+			FriendRequest: require('./friends/friend_request')
+		}
 	},
 };
 
