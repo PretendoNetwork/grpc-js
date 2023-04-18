@@ -1,6 +1,7 @@
 /* eslint-disable */
 import type { CallContext, CallOptions } from "nice-grpc-common";
 import { AcceptFriendRequestRequest, AcceptFriendRequestResponse } from "./accept_friend_request_rpc";
+import { DenyFriendRequestRequest, DenyFriendRequestResponse } from "./deny_friend_request_rpc";
 import { GetUserFriendPIDsRequest, GetUserFriendPIDsResponse } from "./get_user_friend_pids_rpc";
 import {
   GetUserFriendRequestsIncomingRequest,
@@ -57,6 +58,14 @@ export const FriendsDefinition = {
       responseStream: false,
       options: {},
     },
+    denyFriendRequest: {
+      name: "DenyFriendRequest",
+      requestType: DenyFriendRequestRequest,
+      requestStream: false,
+      responseType: DenyFriendRequestResponse,
+      responseStream: false,
+      options: {},
+    },
   },
 } as const;
 
@@ -81,6 +90,10 @@ export interface FriendsServiceImplementation<CallContextExt = {}> {
     request: AcceptFriendRequestRequest,
     context: CallContext & CallContextExt,
   ): Promise<DeepPartial<AcceptFriendRequestResponse>>;
+  denyFriendRequest(
+    request: DenyFriendRequestRequest,
+    context: CallContext & CallContextExt,
+  ): Promise<DeepPartial<DenyFriendRequestResponse>>;
 }
 
 export interface FriendsClient<CallOptionsExt = {}> {
@@ -104,6 +117,10 @@ export interface FriendsClient<CallOptionsExt = {}> {
     request: DeepPartial<AcceptFriendRequestRequest>,
     options?: CallOptions & CallOptionsExt,
   ): Promise<AcceptFriendRequestResponse>;
+  denyFriendRequest(
+    request: DeepPartial<DenyFriendRequestRequest>,
+    options?: CallOptions & CallOptionsExt,
+  ): Promise<DenyFriendRequestResponse>;
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

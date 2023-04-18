@@ -2,6 +2,7 @@
 exports.__esModule = true;
 exports.FriendsDefinition = exports.protobufPackage = void 0;
 var accept_friend_request_rpc_1 = require("./accept_friend_request_rpc");
+var deny_friend_request_rpc_1 = require("./deny_friend_request_rpc");
 var get_user_friend_pids_rpc_1 = require("./get_user_friend_pids_rpc");
 var get_user_friend_requests_incoming_rpc_1 = require("./get_user_friend_requests_incoming_rpc");
 var empty_1 = require("./google/protobuf/empty");
@@ -49,6 +50,14 @@ exports.FriendsDefinition = {
             requestType: accept_friend_request_rpc_1.AcceptFriendRequestRequest,
             requestStream: false,
             responseType: accept_friend_request_rpc_1.AcceptFriendRequestResponse,
+            responseStream: false,
+            options: {}
+        },
+        denyFriendRequest: {
+            name: "DenyFriendRequest",
+            requestType: deny_friend_request_rpc_1.DenyFriendRequestRequest,
+            requestStream: false,
+            responseType: deny_friend_request_rpc_1.DenyFriendRequestResponse,
             responseStream: false,
             options: {}
         }

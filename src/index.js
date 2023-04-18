@@ -26,6 +26,7 @@ module.exports = {
 			sendUserFriendRequest: require('./friends/send_user_friend_request_rpc'),
 			getUserFriendRequestsIncoming: require('./friends/get_user_friend_requests_incoming_rpc'),
 			acceptFriendRequest: require('./friends/accept_friend_request_rpc'),
+			denyFriendRequest: require('./friends/deny_friend_request_rpc'),
 		},
 		types: {
 			FriendRequest: require('./friends/friend_request')
