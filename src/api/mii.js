@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Mii = exports.protobufPackage = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-exports.protobufPackage = "account";
+exports.protobufPackage = "api";
 function createBaseMii() {
     return { name: "", data: "", url: "" };
 }

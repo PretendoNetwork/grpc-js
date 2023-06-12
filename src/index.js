@@ -32,5 +32,22 @@ module.exports = {
 			FriendRequest: require('./friends/friend_request')
 		}
 	},
+	api: {
+		service: require('./api/api_service'),
+		rpc: {
+			forgotPassword: require('./api/forgot_password_rpc'),
+			getUserData: require('./api/get_user_data_rpc'),
+			login: require('./api/login_rpc'),
+			register: require('./api/register_rpc'),
+			resetPassword: require('./api/reset_password_rpc'),
+			setDiscordConnectionData: require('./api/set_discord_connection_data_rpc'),
+			setStripeConnectionData: require('./api/set_stripe_connection_data_rpc'),
+			updateUserData: require('./api/update_user_data_rpc'),
+		},
+		types: {
+			Mii: require('./account/mii'),
+			UserConnections: require('./api/user_connections'),
+		}
+	},
 };
 
