@@ -3,30 +3,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Mii = exports.protobufPackage = void 0;
+exports.ResetPasswordRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-exports.protobufPackage = "account";
-function createBaseMii() {
-    return { name: "", data: "", url: "" };
+exports.protobufPackage = "api";
+function createBaseResetPasswordRequest() {
+    return { password: "", passwordConfirm: "", token: "" };
 }
-exports.Mii = {
+exports.ResetPasswordRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.name !== "") {
-            writer.uint32(10).string(message.name);
+        if (message.password !== "") {
+            writer.uint32(10).string(message.password);
         }
-        if (message.data !== "") {
-            writer.uint32(18).string(message.data);
+        if (message.passwordConfirm !== "") {
+            writer.uint32(18).string(message.passwordConfirm);
         }
-        if (message.url !== "") {
-            writer.uint32(26).string(message.url);
+        if (message.token !== "") {
+            writer.uint32(26).string(message.token);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMii();
+        const message = createBaseResetPasswordRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -34,19 +34,19 @@ exports.Mii = {
                     if (tag != 10) {
                         break;
                     }
-                    message.name = reader.string();
+                    message.password = reader.string();
                     continue;
                 case 2:
                     if (tag != 18) {
                         break;
                     }
-                    message.data = reader.string();
+                    message.passwordConfirm = reader.string();
                     continue;
                 case 3:
                     if (tag != 26) {
                         break;
                     }
-                    message.url = reader.string();
+                    message.token = reader.string();
                     continue;
             }
             if ((tag & 7) == 4 || tag == 0) {
@@ -58,26 +58,26 @@ exports.Mii = {
     },
     fromJSON(object) {
         return {
-            name: isSet(object.name) ? String(object.name) : "",
-            data: isSet(object.data) ? String(object.data) : "",
-            url: isSet(object.url) ? String(object.url) : "",
+            password: isSet(object.password) ? String(object.password) : "",
+            passwordConfirm: isSet(object.passwordConfirm) ? String(object.passwordConfirm) : "",
+            token: isSet(object.token) ? String(object.token) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.name !== undefined && (obj.name = message.name);
-        message.data !== undefined && (obj.data = message.data);
-        message.url !== undefined && (obj.url = message.url);
+        message.password !== undefined && (obj.password = message.password);
+        message.passwordConfirm !== undefined && (obj.passwordConfirm = message.passwordConfirm);
+        message.token !== undefined && (obj.token = message.token);
         return obj;
     },
     create(base) {
-        return exports.Mii.fromPartial(base ?? {});
+        return exports.ResetPasswordRequest.fromPartial(base ?? {});
     },
     fromPartial(object) {
-        const message = createBaseMii();
-        message.name = object.name ?? "";
-        message.data = object.data ?? "";
-        message.url = object.url ?? "";
+        const message = createBaseResetPasswordRequest();
+        message.password = object.password ?? "";
+        message.passwordConfirm = object.passwordConfirm ?? "";
+        message.token = object.token ?? "";
         return message;
     },
 };

@@ -12,7 +12,7 @@ async function main() {
 		pid: 1098860494
 	}, {
 		metadata: grpc.Metadata({
-			'X-API-Key': 'f94fa5c39e094f468486784d7af82d8b'
+			'X-API-Key': 'xxx'
 		})
 	});
 
